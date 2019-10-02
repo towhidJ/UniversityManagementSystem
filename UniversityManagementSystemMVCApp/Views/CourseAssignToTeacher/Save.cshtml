@@ -1,0 +1,225 @@
+﻿@model UniversityManagementSystemMVCApp.Models.CourseAssignTeacher
+@{
+    ViewBag.Title = "Course Assign To Teacher";
+}
+
+@section Style
+{
+    <link href="~/Content/Custom_CS.css" rel="stylesheet" />
+    <style>
+        #errmsg {
+            color: red;
+        }
+
+        .field-validation-error {
+            text-align: center;
+            color: red;
+        }
+
+        #wrapper {
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        input {
+            width: 240px;
+        }
+    </style>
+}
+<div>
+    <div id="wrapper">
+        <hr />
+        <h3>Course Assign to Teacher</h3>
+        <hr />
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "CourseAssign" }))
+        {
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.DepartmentId, new { @class = "col-md-3 control-label" })
+                @Html.DropDownListFor(x => x.DepartmentId, new SelectList(ViewBag.Departments, "Value", "Text"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.DepartmentId)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.TeacherId, new { @class = "col-md-3 control-label" })
+                <select id="TeacherId" name="TeacherId" class="form-control">
+                    <option value="">--Select--</option>
+                </select>
+                @Html.ValidationMessageFor(x => x.TeacherId)
+            </div>
+            <div class="form-group">
+                @Html.Label("CreditToBeTaken", new { @class = "col-md-3 control-label" })
+                @Html.TextBox("CreditToBeTaken", null, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.Label("ReminingCredit", new { @class = "col-md-3 control-label" })
+                @Html.TextBox("ReminingCredit", null, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.CourseId, new { @class = "col-md-3 control-label" })
+                <select id="CourseId" name="CourseId" class="form-control">
+                    <option value="">--Select--</option>
+                </select>
+                @Html.ValidationMessageFor(x => x.CourseId)
+            </div>
+            <div class="form-group">
+                @Html.Label("CourseName", new { @class = "col-md-3 control-label" })
+                @Html.TextBox("CourseName", null, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.Label("Credit", new { @class = "col-md-3 control-label" })
+                @Html.TextBox("Credit", null, new { @class = "form-control" })
+            </div>
+            <div class="col-xs-11 space-vert">
+                <input id="click" type="submit" value="Assign" class="btn btn-success" />
+            </div>
+        }
+        <div></div>
+        <div class="center">
+            
+            <h1>@ViewBag.Message</h1>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+
+    @*<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>*@
+
+
+
+    <script>
+        $(function () {
+
+            $("#TeacherId").prop('disabled', true);
+            $("#CourseId").prop('disabled', true);
+            $("#CreditToBeTaken").prop('disabled', true);
+            $("#ReminingCredit").prop('disabled', true);
+            $("#CourseName").prop('disabled', true);
+            $("#Credit").prop('disabled', true);
+            $('#DepartmentId').on('change',
+                function () {
+
+                    var depId = $('#DepartmentId').val();
+                    $('#TeacherId').empty();
+                    $("#TeacherId").prop('disabled', false);
+                    $('#TeacherId').append('<option value="">--Select--</option>');
+                    $('#CourseCode').empty();
+                    $('#CourseId').empty();
+                    $("#CourseId").prop('disabled', false);
+
+                    $('#CourseId').append('<option value="">--Select--</option>');
+
+                    var json = {
+                        departmentId: depId
+                    };
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("GetTeacherByDepartmentId", "CourseAssignToTeacher")',
+                        contentType: 'application/json',
+                        data: JSON.stringify(json),
+                        success: function (data) {
+
+
+                            $.each(data,
+                                function (key, value) {
+                                    $('#TeacherId').append('<option value="' +
+                                        value.Id +
+                                        '">' +
+                                        value.TeacherName +
+                                        '</option>');
+
+                                });
+                        }
+                    });
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("GetCourseByDepartmentId", "CourseAssignToTeacher")',
+                        contentType: 'application/json',
+                        data: JSON.stringify(json),
+                        success: function (data) {
+                            $.each(data,
+                                function (key, value) {
+                                    $('#CourseId').append('<option value="' +
+                                        value.Id +
+                                        '">' +
+                                        value.CourseCode +
+                                        '</option>');
+                                });
+                        }
+                    });
+                });
+
+            $('#TeacherId').on('change',
+                function () {
+                    var tecId = $('#TeacherId').val();
+                    $('#CreditToBeTaken').empty();
+                    $('#ReminingCredit').empty();
+                    var json = {
+                        teacherId: tecId
+                    };
+
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("GetCreditByTeacherId", "CourseAssignToTeacher")',
+                        contentType: 'application/json',
+                        data: JSON.stringify(json),
+
+                        success: function (data) {
+
+                            $.each(data,
+                                function (key, value) {
+
+                                    $('#CreditToBeTaken').val(value.CreditToBeTaken);
+                                    $('#ReminingCredit').val(value.ReminingCredit);
+
+                                });
+                        }
+                    });
+                });
+
+
+            $('#CourseId').on('change',
+                function () {
+                    var cosId = $('#CourseId').val();
+                    var json = {
+                        courseId: cosId
+                    };
+
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("GetCourseByCourseId", "CourseAssignToTeacher")',
+                        contentType: 'application/json',
+                        data: JSON.stringify(json),
+
+                        success: function (data) {
+
+                            $.each(data,
+                                function (key, value) {
+
+                                    $('#CourseName').val(value.CourseName);
+                                    $('#Credit').val(value.Credit);
+
+                                });
+                        }
+                    });
+                });
+
+            $('#click').click(function () {
+                var creditLeft = $("#ReminingCredit").val();
+                var courseCredit = $("#Credit").val();
+                if (parseInt(creditLeft) < parseInt(courseCredit)) {
+                    var r = confirm("Your Reamaining Credit is less!! Are you sure?")("Are you sure");
+                    if (r === true) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            });
+        });
+    </script>
+}

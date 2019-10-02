@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "Unassign";
+}
+@section Style
+{
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/Custom_CS.css" rel="stylesheet" />
+    <link href="~/Content/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+    <style>
+        #wrapper {
+            width: 60%;
+            margin: 0 auto;
+        }
+    </style>
+}
+
+<div id="wrapper">
+    <hr />
+    <h3>Unassign All Courses</h3>
+    <hr />
+    @using (Html.BeginForm(null, null, FormMethod.Post))
+    {
+        <div class="col-xs-11 space-ver">
+            <input type="submit" id="submitBtn" value="Unassign Course" class="btn btn-danger" />
+        </div>
+
+    }
+    <hr />
+    <div>
+        <h3 align="center">@ViewBag.Message</h3>
+    </div>
+    <hr />
+</div>
+
+@section scripts{
+
+    <script src="~/Scripts/jquery-1.12.4.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Content/sweetalert2/sweetalert2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+
+            var message;
+
+            function unassign(parameters) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("UnassignJson", "UnassignCourse")',
+                    contentType: 'application/json',
+
+                    success: function(response) {
+                        message = response;
+                        Swal.fire(
+                            message,
+                            '',
+                            'success'
+                        );
+                    }
+                });
+
+            }
+
+            $('#submitBtn').click(function(e) {
+                //if (!confirm(jQuery(this).attr("data-confirm"))) {
+                //    e.preventDefault();
+                //}
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, unassign!'
+                }).then((result) => {
+                    if (result.value) {
+                        unassign();
+                    }
+                });
+            });
+        });
+    </script>
+}
+

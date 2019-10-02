@@ -1,0 +1,109 @@
+﻿@model UniversityManagementSystemMVCApp.Models.Department
+@{
+    ViewBag.Title = "Save Department";
+}
+
+@section Style
+{
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/Custom_CS.css" rel="stylesheet" />
+<style>
+
+    .field-validation-error {
+        text-align: center;
+        color: blue;
+    }
+    #wrapper {
+        width: 60%;
+        margin: 0 auto;
+    }
+
+    input {
+        width: 240px;
+    }
+</style>
+}
+
+<div >
+    <div id="wrapper">
+        <hr />
+        <h3 class="center">Save Department</h3>
+        <hr />
+        
+        
+        @using (Html.BeginForm(null, null, FormMethod.Post, new {id = "saveForm"}))
+        {
+            <div class="form-group">
+                @Html.LabelFor(x => x.DepartmentCode,"Code", new { @class = "col-md-3 control-label" })
+                @Html.TextBoxFor(x => x.DepartmentCode, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.DepartmentCode)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.DepartmentName,"Name", new { @class = "col-md-3 control-label" })
+                @Html.TextBoxFor(x => x.DepartmentName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.DepartmentName)
+            </div>
+            <div class="col-xs-11 space-vert">
+                <input id="click" type="submit" value="Save" class="btn btn-success" />
+            </div>
+
+            <div class="col-lg-10">
+                <h3 align="center">@ViewBag.Message</h3>
+            </div>
+            <hr/>
+        }
+
+        @*<form id="saveForm" method="POST">
+            <div class="center">
+
+                <div class="form-group">
+                    <label for="DepartmentCode" class="col-md-3 control-label">Code</label>
+                    <input type="text" id="DepartmentCode" name="DepartmentCode" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label for="DepartmentName" class="col-md-3 control-label">Name</label>
+                    <input type="text" id="DepartmentName" name="DepartmentName" class="form-control" />
+                </div>
+                <div class="col-xs-11 space-vert">
+                    <input type="submit" value="Save" class="btn btn-success"/>
+                </div>
+                <div class="col-lg-10" style="color: green">
+                    @ViewBag.Message;
+                </div>
+            </div>
+        </form>*@
+
+    </div>
+</div>
+<hr/>
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#saveForm").validate({
+                rules: {
+                    DepartmentName: "required",
+                    DepartmentCode: {
+                        required: true,
+                        minlength: 2,
+                        maxlength: 7
+                    }
+
+                },
+                messages: {
+                    DepartmentName: "Please enter Department name",
+
+                    DepartmentCode: {
+                        required: "Please provide a Department Code",
+                        minlength: "Your Department Code must be at least 2 characters long",
+                        maxlength: "Your Department Code less then 7 characters long"
+                    }
+                }
+            });
+
+        });
+    </script>
+
+}

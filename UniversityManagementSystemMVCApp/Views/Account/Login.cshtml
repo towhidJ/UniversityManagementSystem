@@ -1,0 +1,53 @@
+﻿@model UniversityManagementSystemMVCApp.Models.Membership
+
+@{
+    ViewBag.Title = "Login";
+}
+
+@section Style
+{
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Custom_CS.css" rel="stylesheet" />
+    <style>
+
+        #wrapper {
+            width: 60%;
+            margin: 0 auto;
+        }
+
+        input {
+            width: 240px;
+        }
+    </style>
+}
+
+<h2>Login</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div id="wrapper">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserName,"Username", htmlAttributes: new { @class = "col-md-3 control-label" })
+            @Html.TextBoxFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "col-md-3 control-label" })
+            @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-xs-11 space-vert">
+            <input type="submit" value="Login" class="btn btn-success" />
+        </div>
+    </div>
+    <br/>
+    <br/>
+}
+

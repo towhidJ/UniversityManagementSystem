@@ -1,0 +1,68 @@
+﻿@using UniversityManagementSystemMVCApp.Models
+@{
+    ViewBag.Title = "Show Department List";
+}
+@model List<Department>
+
+
+<!DOCTYPE html>
+
+@section Style
+{
+    <link href="~/Content/Custom_CS.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    
+    <style>
+
+        #wrapper {
+            width: 60%;
+            margin: 0 auto;
+        }
+
+        input {
+            width: 240px;
+        }
+    </style>
+}
+<div>
+    <div id="wrapper">
+        <hr />
+        <h1>Show Department</h1>
+        <hr />
+        <table id="showDepartment" class="display" style="width: 100%">
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Department department in Model)
+                {
+                    <tr>
+                        <td>@department.DepartmentCode</td>
+                        <td>@department.DepartmentName</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+            </tfoot>
+        </table>
+    </div>
+    
+</div>
+<hr/>
+
+@section scripts
+{
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $("#showDepartment").DataTable();
+        });
+    </script>
+
+}

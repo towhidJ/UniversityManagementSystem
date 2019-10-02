@@ -1,0 +1,87 @@
+﻿@model UniversityManagementSystemMVCApp.Models.Teacher
+@{
+    ViewBag.Title = "Save";
+}
+
+@section Style
+{
+    <link href="~/Content/Custom_CS.css" rel="stylesheet" />
+    <style>
+        #errmsg {
+            color: red;
+        }
+
+        .field-validation-error {
+            margin-left: 140px;
+            color: red;
+        }
+
+        #wrapper {
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        input {
+            width: 240px;
+        }
+    </style>
+}
+<div id="wrapper">
+    <hr />
+    <h3 align="center">Save Teacher</h3>
+    <hr />
+    @using (Html.BeginForm(null, null, FormMethod.Post))
+    {
+        <div class="form-group">
+            @Html.LabelFor(x => x.TeacherName,"Name", new { @class = "col-md-3 control-label" })
+            @Html.TextBoxFor(x => x.TeacherName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.TeacherName)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.Address, new { @class = "col-md-3 control-label" })
+            @Html.TextAreaFor(x => x.Address, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Email, new { @class = "col-md-3 control-label" })
+            @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Email)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.ContactNo, "Contact No.", new { @class = "col-md-3 control-label" })
+            @Html.TextBoxFor(x => x.ContactNo, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.ContactNo)
+            <span id="errmsg"></span>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.DesignationId, new { @class = "col-md-3 control-label" })
+            @Html.DropDownListFor(x => x.DesignationId, new SelectList(ViewBag.Designation, "Value", "Text"), new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.DesignationId)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.DepartmentId, new { @class = "col-md-3 control-label" })
+            @Html.DropDownListFor(x => x.DepartmentId, new SelectList(ViewBag.Departments, "Value", "Text"), new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.DepartmentId)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.CreditToBeTaken, "Credit To Be Taken", new { @class = "col-md-3 control-label" })
+            @Html.TextBoxFor(x => x.CreditToBeTaken, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.CreditToBeTaken)
+        </div>
+        <div></div>
+    <div class="col-xs-11 space-ver">
+        <input type="submit" value="Save" class="btn btn-success" />
+    </div>
+    }
+    <div class="center"><h3>@ViewBag.Message</h3></div>
+</div>
+<hr/>
+@section scripts
+{
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+}

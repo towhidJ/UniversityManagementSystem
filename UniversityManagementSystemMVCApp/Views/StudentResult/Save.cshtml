@@ -1,0 +1,156 @@
+﻿@model UniversityManagementSystemMVCApp.Models.StudentResult
+@{
+    ViewBag.Title = "Save";
+}
+@section Style
+{
+
+    <link href="~/Content/Custom_CS.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+    <style>
+        .field-validation-error {
+            text-align: center;
+            color: red;
+        }
+
+        #wrapper {
+            width: 60%;
+            margin: 0 auto;
+        }
+
+        input {
+            width: 240px;
+        }
+    </style>
+}
+
+<div class="">
+
+    <div id="wrapper">
+        <hr />
+        <h3 class="center">Result Assign</h3>
+        <hr />
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "Enroll" }))
+        {
+            <div class="form-group">
+                @Html.LabelFor(x => x.StudentId, "Student Reg. No.", new { @class = "col-md-3 control-label" })
+                @Html.DropDownListFor(x => x.StudentId, new SelectList(ViewBag.RegNo, "Value", "Text"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.StudentId)
+            </div>
+            <div class="form-group">
+                @Html.Label("Name", new { @class = "col-md-3 control-label" })
+                @Html.TextBox("Name", null, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.Label("Email", new { @class = "col-md-3 control-label" })
+                @Html.TextBox("Email", null, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.Label("DepartmentId", "Department", new { @class = "col-md-3 control-label" })
+                @Html.TextBox("DepartmentId", null, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.CourseId, "Course Name", new { @class = "col-md-3 control-label" })
+                <select id="CourseId" name="CourseId" class="form-control">
+                    <option value="">--Select--</option>
+                </select>
+                @Html.ValidationMessageFor(x => x.CourseId)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.GradeLetterId, new { @class = "col-md-3 control-label" })
+                @Html.DropDownListFor(x => x.GradeLetterId, new SelectList(ViewBag.Grades, "Value", "Text"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.GradeLetterId)
+            </div>
+    <div class="col-xs-11 space-ver">
+        <input type="submit" value="Save" class="btn btn-success" />
+    </div>
+
+        }
+        <hr/>
+        <div></div>
+        <div class="center" ><br/><h3>@ViewBag.Message</h3></div>
+    </div>
+</div>
+
+<hr>
+@section Scripts {
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+    <script src="~/Scripts/jquery.validate-vsdoc.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            
+            $("#Name").prop('disabled', true);
+            $("#Email").prop('disabled', true);
+            $("#DepartmentId").prop('disabled', true);
+            $("#DepartmentId").empty();
+            
+            $("#Date").datepicker();
+
+            $("#StudentId").change(function() {
+                var stuId = $("#StudentId").val();
+
+                var json =
+                {
+                    studentId: stuId
+                };
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("RegistrationNo", "StudentResult")',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(json),
+                    success: function(data) {
+                        $.each(data,
+                            function(key, value) {
+                                $("#Name").val(value.StudentName);
+                                $("#Email").val(value.Email);
+                                $("#DepartmentId").val(value.DepartmentName);
+                            });
+                    }
+                });
+            });
+
+            $("#StudentId").change(function() {
+                $("#CourseId").empty();
+                $('#CourseId').append('<option value="">--Select--</option>');
+                var stuId = $("#StudentId").val();
+                var json =
+                {
+                    studentId: stuId
+                };
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("CourseByRegistrationNo", "StudentResult")',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(json),
+                    success: function(data) {
+                        
+                        $.each(data,
+                            function(key, value) {
+                                $("#CourseId").append('<option value=' +
+                                    value.CourseId +
+                                    '>' +
+                                    value.CourseName +
+                                    '</option>');
+                            });
+                    }
+                });
+            });
+
+
+
+
+        }); 
+
+    </script>
+}
+
+
+
+

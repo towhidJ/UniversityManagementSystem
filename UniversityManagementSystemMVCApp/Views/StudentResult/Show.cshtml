@@ -1,0 +1,178 @@
+﻿@model UniversityManagementSystemMVCApp.Models.StudentResult
+@{
+    ViewBag.Title = "Print Result";
+}
+
+@section Style
+{
+
+    <link href="~/Content/Custom_CS.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+    <style>
+        .field-validation-error {
+            text-align: center;
+            color: red;
+        }
+
+        #wrapper {
+            width: 60%;
+            margin: 0 auto;
+        }
+
+        input {
+            width: 240px;
+        }
+        #customeTab {
+           
+            color: black;
+            font-weight: bold;
+        }
+        #customeTab th {
+            background-color: aquamarine;
+        }
+        #customeTab tr:nth-child(even) {
+                background-color: #ddd;
+            }
+
+        #customeTab tr:hover {
+            background-color: #ddd;
+            color: black;
+        }
+    </style>
+}
+
+<div  class="">
+
+    <div id="wrapper">
+        <hr />
+        <h3 class="center">Show Result</h3>
+        <hr />
+        @using (Html.BeginForm("Result", "StudentResult"))
+        {
+            <div class="form-group">
+                @Html.LabelFor(x => x.StudentId, "Student Reg. No.", new { @class = "col-md-3 control-label" })
+                @Html.DropDownListFor(x => x.StudentId, new SelectList(ViewBag.RegNo, "Value", "Text"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.StudentId)
+            </div>
+            <div class="form-group">
+                @Html.Label("Name", new { @class = "col-md-3 control-label" })
+                @Html.TextBox("Name", null, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.Label("Email", new { @class = "col-md-3 control-label" })
+                @Html.TextBox("Email", null, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.Label("DepartmentId", "Department", new { @class = "col-md-3 control-label" })
+                @Html.TextBox("DepartmentId", null, new { @class = "form-control" })
+            </div>
+            <div class="col-xs-11 space-ver">
+                <input id="PDF" type="submit" value="Make PDF" class="btn btn-success" />
+            </div>
+
+        }
+        <hr />
+        <br />
+        <hr />
+
+    </div>
+</div>
+<div id="TabPDF">
+
+
+    <table  class="table table-dark" id="customeTab">
+        <thead>
+        <tr>
+            <th scope="col">Course Code</th>
+            <th scope="col">Name</th>
+            <th scope="col">Grade</th>
+        </tr>
+        </thead>
+        <tbody id="result"></tbody>
+
+    </table>
+</div>
+<hr>
+@section Scripts {
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+<script src="~/Scripts/PrintThis.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.2.61/jspdf.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/jquery.validate-vsdoc.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+
+            $("#Name").prop('disabled', true);
+            $("#Email").prop('disabled', true);
+            $("#DepartmentId").prop('disabled', true);
+            $("#DepartmentId").empty();
+            
+
+            $("#Date").datepicker();
+
+            $("#StudentId").change(function() {
+                var stuId = $("#StudentId").val();
+                $("#result").empty();
+                var json =
+                {
+                    studentId: stuId
+                };
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("RegistrationNo", "StudentResult")',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(json),
+                    success: function(data) {
+                        $.each(data,
+                            function(key, value) {
+                                $("#Name").val(value.StudentName);
+                                $("#Email").val(value.Email);
+                                $("#DepartmentId").val(value.DepartmentName);
+                            });
+                    }
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("ShowResult", "StudentResult")',
+                    contentType: 'application/json',
+                    data: JSON.stringify(json),
+
+                    success: function (data) {
+
+                        $.each(data,
+                            function (key, value) {
+
+                                $("#result").append('<tr> <td>' + value.CourseCode + '</td> <td>' + value.CourseName + '</td> <td>' + value.Grade + '</td></tr>');
+
+                            });
+                    }
+                });
+            });
+
+            
+            
+
+
+        });
+        
+       
+
+    </script>
+}
+
+
+
+
+
+
+

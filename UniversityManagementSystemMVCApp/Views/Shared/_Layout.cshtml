@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+
+    <link href="~/Content/Custom_CS.css" rel="stylesheet" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("Style",required:false)
+
+</head>
+<body style="background: linear-gradient(110deg, #fdcd3b 60%, #ffed4b 60%)">
+    <div>
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toogle</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+
+                    </button>
+                    <a class="navbar-brand" href=@Url.Action("Index","Home")>
+                        <span>
+                            <img alt="Logo" src="~/Content/Image/bgclogo.png" height="30" />
+                        </span><sub>BGC Trust University Bangladesh</sub>
+                    </a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-right navbar-nav">
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li><a href=@Url.Action("Index","Home")>Home</a></li>
+                            <li><a href=@Url.Action("About","Home")>About</a></li>
+
+                            if (User.IsInRole("Admin"))
+                            {
+                                
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Student<b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href=@Url.Action("Save","Student")>Register Student</a></li>
+                                        <li><a href=@Url.Action("Save","EnrollCourse")>Enroll Course</a></li>
+                                        <li><a href=@Url.Action("Save","StudentResult")>Save Result</a></li>
+                                        <li><a href=@Url.Action("Show","StudentResult")>Show Result</a></li>
+                                        <li><a href=@Url.Action("CourseShowByStudent","Course")>Show Enroll Course</a></li>
+
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Course<b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href=@Url.Action("Save","Course")>Save Course</a></li>
+                                        <li><a href=@Url.Action("ShowCourse","Course")>Course View</a></li>
+                                        <li><a href=@Url.Action("Unassign","UnassignCourse")>Unassign Course</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Teacher<b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href=@Url.Action("Save","Teacher")>Save Teacher</a></li>
+                                        <li><a href=@Url.Action("Save","CourseAssignToTeacher")>Course Assign Teacher</a></li>
+                                        <li><a href=@Url.Action("Show","CourseAssignToTeacher")>Show Assign Teacher</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Class Room Allocation<b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href=@Url.Action("Save","AllocateClassRoom")>Class Room Allocate</a></li>
+                                        <li><a href=@Url.Action("ClassSchedule","AllocateClassRoom")>Class Shedule</a></li>
+                                        <li><a href=@Url.Action("UnallocatedClass","UnallocatedClass")>Class Unallocated</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Department<b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href=@Url.Action("Save","Department")>Save Department</a></li>
+                                        <li><a href=@Url.Action("Show","Department")>Show Department</a></li>
+                                    </ul>
+                                </li>
+                                <li>Dear- @User.Identity.Name</li>
+                                <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
+                            }
+                             else if (User.IsInRole("Teacher"))
+                             {
+                                 
+                                 <li class="dropdown">
+                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Course<b class="caret"></b></a>
+                                     <ul class="dropdown-menu">
+                                         <li><a href=@Url.Action("ShowCourse","Course")>Course View</a></li>
+                                         <li><a href=@Url.Action("Show", "CourseAssignToTeacher")>Show Assign Teacher</a></li>
+                                         <li><a href=@Url.Action("ClassSchedule","AllocateClassRoom")>Class Shedule</a></li>
+                                     </ul>
+                                 </li>
+
+                                 <li class="dropdown">
+                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Department<b class="caret"></b></a>
+                                     <ul class="dropdown-menu">
+                                         <li><a href=@Url.Action("Show","Department")>Show Department</a></li>
+                                     </ul>
+                                 </li>
+
+                                 <li>Dear- @User.Identity.Name</li>
+                                 <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
+                             }
+                             else if (User.IsInRole("Student"))
+                             {
+
+                                 <li class="dropdown">
+                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Course<b class="caret"></b></a>
+                                     <ul class="dropdown-menu">
+                                         <li><a href=@Url.Action("ShowCourse","Course")>Course View</a></li>
+                                         <li><a href=@Url.Action("Save","EnrollCourse")>Enroll Course</a></li>
+                                         <li><a href=@Url.Action("CourseShowByStudent","Course")>Show Enroll Course</a></li>
+                                         <li><a href=@Url.Action("ClassSchedule","AllocateClassRoom")>Class Shedule</a></li>
+                                         <li><a href=@Url.Action("Show","StudentResult")>Result</a></li>
+
+                                     </ul>
+                                 </li>
+
+                                 <li class="dropdown">
+                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Department<b class="caret"></b></a>
+                                     <ul class="dropdown-menu">
+                                         <li><a href=@Url.Action("Show","Department")>Show Department</a></li>
+                                     </ul>
+                                 </li>
+
+                                 <li>Dear- @User.Identity.Name</li>
+                                 <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
+                             }
+
+                        }
+                        else
+                        {
+                            <li><a href=@Url.Action("Index","Home")>Home</a></li>
+                            <li><a href=@Url.Action("About","Home")>About</a></li>
+                            <li>@Html.ActionLink("Login", "Login", "Account")</li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="container center body-content">
+    @RenderBody()
+        
+        
+    <!---Footer --->
+    <hr />
+    <footer>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <p class="pull-left">&copy; 2019 BGC Trust University &middot; <a href=@Url.Action("Index", "Home")>Home</a>&middot;<a href=@Url.Action("About", "Home")>About</a>&middot;<a href=@Url.Action("Contact","Home")>Contact</a>&middot;</p>
+            if (User.IsInRole("Admin"))
+            {
+                <p class="pull-right"><a href="#">Admin Panel</a></p>
+            }
+            else if (User.IsInRole("Student"))
+            {
+                <p class="pull-right"><a href="#">Student Panel</a></p>
+            }
+            else if (User.IsInRole("Teacher"))
+            {
+                <p class="pull-right"><a href="#">Teacher Panel</a></p>
+            }
+        }
+        else
+        {
+            <p class="pull-right"><a href="#">Back to top</a></p>
+            <p class="pull-left">&copy; 2019 BGC Trust University &middot; <a href=@Url.Action("Index", "Home")>Home</a>&middot;<a href=@Url.Action("About", "Home")>About</a>&middot;<a href=@Url.Action("Contact","Home")>Contact</a>&middot;</p>
+        }
+
+    </footer>
+    <!---Footer --->
+
+    @*<hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>*@
+</div>
+<!---Footer --->
+@*<hr />
+<footer class="footer-pos">
+    <div class="container">
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2019 Towhidul Islam &middot; <a href=@Url.Action("Index","Home")>Home</a>&middot;<a href="">About</a>&middot;<a href="#">Contact</a>&middot;
+    </div>
+</footer>*@
+<!---Footer --->
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
