@@ -1,0 +1,57 @@
+﻿@model IEnumerable<UniversityManagementSystemMVCApp.Models.CodingClubAdvTB>
+
+@{
+    ViewBag.Title = "Index";
+}
+@section Style
+{
+
+    <link href="~/Content/DataTables/css/jquery.dataTables.css" rel="stylesheet" />
+}
+
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info text-center">Adviser List</h2>
+    </div>
+</div>
+<br />
+<table class="table" id="advTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.JoinDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TeacherTB.TeacherName)
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JoinDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TeacherTB.TeacherName)
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot></tfoot>
+
+</table>
+
+@section scripts
+{
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#advTable").DataTable();
+        });
+    </script>
+
+}

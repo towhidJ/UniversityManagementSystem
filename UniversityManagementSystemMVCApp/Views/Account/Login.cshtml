@@ -1,53 +1,69 @@
 ﻿@model UniversityManagementSystemMVCApp.Models.Membership
-
 @{
-    ViewBag.Title = "Login";
+    Layout = null;
 }
 
-@section Style
-{
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/Custom_CS.css" rel="stylesheet" />
-    <style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="~/Content/LoginPage/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/LoginPage/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/LoginPage/fonts/iconic/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/LoginPage/vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/LoginPage/vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/LoginPage/vendor/animsition/css/animsition.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/LoginPage/vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/LoginPage/vendor/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/LoginPage/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/LoginPage/css/main.css">
 
-        #wrapper {
-            width: 60%;
-            margin: 0 auto;
-        }
+</head>
+<body>
 
-        input {
-            width: 240px;
-        }
-    </style>
-}
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100 p-t-85 p-b-20">
+                <form class="login100-form validate-form" method="post">
+                    <span class="login100-form-avatar">
+                        <img src="~/Content/LoginPage/images/girl.png" alt="AVATAR">
+                    </span>
 
-<h2>Login</h2>
+                    <div class="wrap-input100 validate-input m-t-85 m-b-35" data-validate="Enter username">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "input100" } })
+                        <span class="focus-input100" data-placeholder="Username"></span>
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div id="wrapper">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserName,"Username", htmlAttributes: new { @class = "col-md-3 control-label" })
-            @Html.TextBoxFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "col-md-3 control-label" })
-            @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-        </div>
+                    <div class="wrap-input100 validate-input m-b-50" data-validate="Enter password">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "input100",Type="password" } })
+                        <span class="focus-input100" data-placeholder="Password"></span>
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        
+                    </div>
 
-        <div class="col-xs-11 space-vert">
-            <input type="submit" value="Login" class="btn btn-success" />
+                    <div class="container-login100-form-btn">
+                        <input type="submit" value="Login" class="login100-form-btn"/>
+                        
+                    </div>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                </form>
+            </div>
         </div>
     </div>
-    <br/>
-    <br/>
-}
 
+    <script src="~/Content/LoginPage/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="~/Content/LoginPage/vendor/animsition/js/animsition.min.js"></script>
+    <script src="~/Content/LoginPage/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/Content/LoginPage/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Content/LoginPage/vendor/select2/select2.min.js"></script>
+    <script src="~/Content/LoginPage/vendor/daterangepicker/moment.min.js"></script>
+    <script src="~/Content/LoginPage/vendor/daterangepicker/daterangepicker.js"></script>
+    <script src="~/Content/LoginPage/vendor/countdowntime/countdowntime.js"></script>
+    <script src="~/Content/LoginPage/js/main.js"></script>
+
+</body>
+</html>

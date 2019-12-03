@@ -1,0 +1,72 @@
+﻿@model UniversityManagementSystemMVCApp.Models.CodeingClubTB
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@section Style
+{
+    <link href="~/Content/Custom_CS.css" rel="stylesheet" />
+    <style>
+        #errmsg {
+            color: red;
+        }
+
+        .field-validation-error {
+            text-align: center;
+            color: red;
+        }
+
+        #wrapper {
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        input {
+            width: 240px;
+        }
+    </style>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div id="wrapper">
+        <h4 class="text-center text-info">Update Info</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ExpDate, htmlAttributes: new { @class = "control-label col-md-3" })
+           
+                @Html.EditorFor(model => model.ExpDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ExpDate, "", new { @class = "text-danger" })
+            
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-3" })
+            
+                @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StudentId, "StudentId", htmlAttributes: new { @class = "control-label col-md-3" })
+            
+                @Html.DropDownList("StudentId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.StudentId, "", new { @class = "text-danger" })
+            
+        </div>
+
+        <div class="col-xs-11 space-vert">
+            <input type="submit" value="Update" class="btn btn-success" />
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

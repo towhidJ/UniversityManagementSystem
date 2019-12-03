@@ -1,0 +1,70 @@
+﻿@model IEnumerable<UniversityManagementSystemMVCApp.Models.CodeingClubTB>
+
+@{
+    ViewBag.Title = "Index";
+}
+@section Style
+{
+
+    <link href="~/Content/DataTables/css/jquery.dataTables.css" rel="stylesheet" />
+}
+
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Member List</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a href="@Url.Action("Create","CodeingClub")" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp; Add Member</a>
+    </div>
+</div>
+<br />
+<table class="table" id="memTab">
+
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentTB.StudentName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentTB.StudentName)
+            </td>
+            <td style="width: 150px">
+                <div class="btn-group">
+                    <a class="btn btn-primary" href="@Url.Action("Edit", "CodeingClub", new {id = item.Id})"><i class="far fa-edit"></i></a>
+                    <a class="btn btn-success" href="@Url.Action("Details", "CodeingClub", new {id = item.Id})"><i class="fas fa-list-ul"></i></a>
+                    <a class="btn btn-danger" href="@Url.Action("Delete", "CodeingClub", new {id = item.Id})"><i class="fas fa-trash-alt"></i></a>
+                </div>
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section scripts
+{
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#memTab").DataTable();
+        });
+    </script>
+
+}

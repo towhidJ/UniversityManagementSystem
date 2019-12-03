@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Web.Caching;
 using UniversityManagementSystemMVCApp.Models;
 using UniversityManagementSystemMVCApp.Models.ViewModel;
 
@@ -11,6 +12,7 @@ namespace UniversityManagementSystemMVCApp.Getway
 {
     public class EnrollCourseGetway:BaseGetway
     {
+        Cache cache = new Cache();
         private EnrollCourse enrollCourse;
         public int Save(EnrollCourse enrollCourse)
         {
@@ -37,6 +39,45 @@ namespace UniversityManagementSystemMVCApp.Getway
         public List<EnrollCourse> AllStudent()
         {
             string query = "SELECT DISTINCT EnrollCourseTB.StudentId AS Id,StudentTB.RegistrationNo  FROM EnrollCourseTB INNER JOIN StudentTB ON StudentTB.Id = EnrollCourseTB.StudentId ";
+            Command = new SqlCommand(query, Connection);
+            Connection.Open();
+            Reader = Command.ExecuteReader();
+            List<EnrollCourse> studentList = new List<EnrollCourse>();
+            while (Reader.Read())
+            {
+                EnrollCourse student = new EnrollCourse();
+                student.Id = Convert.ToInt32(Reader["Id"]);
+                student.RegistrationNo = Reader["RegistrationNo"].ToString();
+                studentList.Add(student);
+
+            }
+            Connection.Close();
+            return studentList;
+        }
+
+
+        public List<EnrollCourse> AllStudentByTecherId(int teacherId)
+        {
+            string query = "SELECT DISTINCT EnrollCourseTB.StudentId AS Id,StudentTB.RegistrationNo  FROM EnrollCourseTB INNER JOIN StudentTB ON StudentTB.Id = EnrollCourseTB.StudentId INNER JOIN CourseAssignTB ON EnrollCourseTB.CourseId = CourseAssignTB.CourseId INNER JOIN TeacherTB ON CourseAssignTB.TeacherId = TeacherTB.Id WHERE TeacherTB.Id = "+teacherId;
+            Command = new SqlCommand(query, Connection);
+            Connection.Open();
+            Reader = Command.ExecuteReader();
+            List<EnrollCourse> studentList = new List<EnrollCourse>();
+            while (Reader.Read())
+            {
+                EnrollCourse student = new EnrollCourse();
+                student.Id = Convert.ToInt32(Reader["Id"]);
+                student.RegistrationNo = Reader["RegistrationNo"].ToString();
+                studentList.Add(student);
+
+            }
+            Connection.Close();
+            return studentList;
+        }
+
+        public List<EnrollCourse> StudentResultById(int uid)
+        {
+            string query = "SELECT DISTINCT EnrollCourseTB.StudentId AS Id,StudentTB.RegistrationNo  FROM EnrollCourseTB INNER JOIN StudentTB ON StudentTB.Id = EnrollCourseTB.StudentId WHERE StudentTB.Id = " +uid;
             Command = new SqlCommand(query, Connection);
             Connection.Open();
             Reader = Command.ExecuteReader();

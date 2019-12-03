@@ -167,12 +167,16 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AllocateClassRoomController.cs" />
+    <Compile Include="Controllers\CodeingClubController.cs" />
+    <Compile Include="Controllers\CodingClubAdvController.cs" />
     <Compile Include="Controllers\CourseAssignToTeacherController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\EnrollCourseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\NetClubAdvController.cs" />
+    <Compile Include="Controllers\NetworkingClubController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\StudentResultController.cs" />
     <Compile Include="Controllers\SweetController.cs" />
@@ -218,44 +222,77 @@
     <Compile Include="Manager\ViewManager\CourseShowManager.cs" />
     <Compile Include="Manager\ViewManager\StudentViewManager.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AdminTB.cs">
+      <DependentUpon>SmSEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AllocateClass.cs" />
+    <Compile Include="Models\ClassAllocateTB.cs">
+      <DependentUpon>SmSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CodeingClubTB.cs">
+      <DependentUpon>SmSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CodingClubAdvTB.cs">
+      <DependentUpon>SmSEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Course.cs" />
+    <Compile Include="Models\CourseAssignTB.cs">
+      <DependentUpon>SmSEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CourseAssignTeacher.cs" />
+    <Compile Include="Models\CourseTB.cs">
+      <DependentUpon>SmSEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Day.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Designation.cs" />
     <Compile Include="Models\EnrollCourse.cs" />
+    <Compile Include="Models\EnrollCourseTB.cs">
+      <DependentUpon>SmSEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GradeLetter.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Logi.cs" />
     <Compile Include="Models\Membership.cs" />
-    <Compile Include="Models\Model1.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
+    <Compile Include="Models\NetClubAdvTB.cs">
+      <DependentUpon>SmSEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Models\NetworkingClubTB.cs">
+      <DependentUpon>SmSEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
+    <Compile Include="Models\RoleTB.cs">
+      <DependentUpon>SmSEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Room.cs" />
+    <Compile Include="Models\RoomNoTB.cs">
+      <DependentUpon>SmSEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Semester.cs" />
+    <Compile Include="Models\SmSEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SmSEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SmSEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SmSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SmSEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SmSEntities.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\StudentResult.cs" />
+    <Compile Include="Models\StudentTB.cs">
+      <DependentUpon>SmSEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Teacher.cs" />
+    <Compile Include="Models\TeacherTB.cs">
+      <DependentUpon>SmSEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\UnassignCourse.cs" />
-    <Compile Include="Models\User.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserRole.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\ViewModel\ClassScheduleView.cs" />
     <Compile Include="Models\ViewModel\CourseAssignView.cs" />
     <Compile Include="Models\ViewModel\CourseShowView.cs" />
@@ -266,6 +303,8 @@
     <Compile Include="UniversityRoleProvider.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bacDesignCss.css" />
+    <Content Include="Content\bgpic.jpg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Custom_CS.css" />
@@ -426,6 +465,65 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\HomePage\css\bootstrap.min.css" />
+    <Content Include="Content\HomePage\css\font-awesome.min.css" />
+    <Content Include="Content\HomePage\css\style.css" />
+    <Content Include="Content\HomePage\css\team.css" />
+    <Content Include="Content\HomePage\images\about-img.jpg" />
+    <Content Include="Content\HomePage\images\banner1.jpg" />
+    <Content Include="Content\HomePage\images\banner2.jpg" />
+    <Content Include="Content\HomePage\images\banner3.jpg" />
+    <Content Include="Content\HomePage\images\contact.jpg" />
+    <Content Include="Content\HomePage\images\p1.jpg" />
+    <Content Include="Content\HomePage\images\p10.jpg" />
+    <Content Include="Content\HomePage\images\p11.jpg" />
+    <Content Include="Content\HomePage\images\p12.jpg" />
+    <Content Include="Content\HomePage\images\p2.jpg" />
+    <Content Include="Content\HomePage\images\p3.jpg" />
+    <Content Include="Content\HomePage\images\p4.jpg" />
+    <Content Include="Content\HomePage\images\p5.jpg" />
+    <Content Include="Content\HomePage\images\p6.jpg" />
+    <Content Include="Content\HomePage\images\p7.jpg" />
+    <Content Include="Content\HomePage\images\p8.jpg" />
+    <Content Include="Content\HomePage\images\p9.jpg" />
+    <Content Include="Content\HomePage\images\service.jpg" />
+    <Content Include="Content\HomePage\images\team.jpg" />
+    <Content Include="Content\HomePage\images\team1.jpg" />
+    <Content Include="Content\HomePage\images\team2.jpg" />
+    <Content Include="Content\HomePage\images\team3.jpg" />
+    <Content Include="Content\HomePage\images\team4.jpg" />
+    <Content Include="Content\HomePage\images\w1.jpg" />
+    <Content Include="Content\HomePage\images\w2.jpg" />
+    <Content Include="Content\HomePage\images\work1-1.jpg" />
+    <Content Include="Content\HomePage\images\work1.jpg" />
+    <Content Include="Content\HomePage\images\work10-10.jpg" />
+    <Content Include="Content\HomePage\images\work10.jpg" />
+    <Content Include="Content\HomePage\images\work11-11.jpg" />
+    <Content Include="Content\HomePage\images\work11.jpg" />
+    <Content Include="Content\HomePage\images\work12-12.jpg" />
+    <Content Include="Content\HomePage\images\work12.jpg" />
+    <Content Include="Content\HomePage\images\work2-2.jpg" />
+    <Content Include="Content\HomePage\images\work2.jpg" />
+    <Content Include="Content\HomePage\images\work3-3.jpg" />
+    <Content Include="Content\HomePage\images\work3.jpg" />
+    <Content Include="Content\HomePage\images\work4-4.jpg" />
+    <Content Include="Content\HomePage\images\work4.jpg" />
+    <Content Include="Content\HomePage\images\work5-5.jpg" />
+    <Content Include="Content\HomePage\images\work5.jpg" />
+    <Content Include="Content\HomePage\images\work6-6.jpg" />
+    <Content Include="Content\HomePage\images\work6.jpg" />
+    <Content Include="Content\HomePage\images\work7-7.jpg" />
+    <Content Include="Content\HomePage\images\work7.jpg" />
+    <Content Include="Content\HomePage\images\work8-8.jpg" />
+    <Content Include="Content\HomePage\images\work8.jpg" />
+    <Content Include="Content\HomePage\images\work9-9.jpg" />
+    <Content Include="Content\HomePage\images\work9.jpg" />
+    <Content Include="Content\HomePage\js\bootstrap.min.js" />
+    <Content Include="Content\HomePage\js\darkbox.js" />
+    <Content Include="Content\HomePage\js\index.js" />
+    <Content Include="Content\HomePage\js\jquery.min.js" />
+    <Content Include="Content\HomePage\js\modernizr.js" />
+    <Content Include="Content\HomePage\js\SmoothScroll.min.js" />
     <Content Include="Content\Image\bgc1.jpg" />
     <Content Include="Content\Image\bgc2.jpg" />
     <Content Include="Content\Image\bgclogo.png" />
@@ -438,6 +536,51 @@
     <Content Include="Content\Image\img7.jpg" />
     <Content Include="Content\Image\towhid.jpg" />
     <Content Include="Content\jquery.datetimepicker.css" />
+    <Content Include="Content\LoginPage\css\main.css" />
+    <Content Include="Content\LoginPage\css\util.css" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\css\font-awesome.css" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\css\font-awesome.min.css" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\HELP-US-OUT.txt" />
+    <Content Include="Content\LoginPage\fonts\iconic\css\material-design-iconic-font.css" />
+    <Content Include="Content\LoginPage\fonts\iconic\css\material-design-iconic-font.min.css" />
+    <Content Include="Content\LoginPage\fonts\iconic\fonts\Material-Design-Iconic-Font.svg" />
+    <Content Include="Content\LoginPage\images\avatar-01.jpg" />
+    <Content Include="Content\LoginPage\images\german.jpg" />
+    <Content Include="Content\LoginPage\images\girl.png" />
+    <Content Include="Content\LoginPage\images\icons\favicon.ico" />
+    <Content Include="Content\LoginPage\images\oxford.jpg" />
+    <Content Include="Content\LoginPage\js\main.js" />
+    <Content Include="Content\LoginPage\vendor\animate\animate.css" />
+    <Content Include="Content\LoginPage\vendor\animsition\css\animsition.css" />
+    <Content Include="Content\LoginPage\vendor\animsition\css\animsition.min.css" />
+    <Content Include="Content\LoginPage\vendor\animsition\js\animsition.js" />
+    <Content Include="Content\LoginPage\vendor\animsition\js\animsition.min.js" />
+    <Content Include="Content\LoginPage\vendor\bootstrap\css\bootstrap-grid.css" />
+    <Content Include="Content\LoginPage\vendor\bootstrap\css\bootstrap-grid.min.css" />
+    <Content Include="Content\LoginPage\vendor\bootstrap\css\bootstrap-reboot.css" />
+    <Content Include="Content\LoginPage\vendor\bootstrap\css\bootstrap-reboot.min.css" />
+    <Content Include="Content\LoginPage\vendor\bootstrap\css\bootstrap.css" />
+    <Content Include="Content\LoginPage\vendor\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\LoginPage\vendor\bootstrap\js\bootstrap.js" />
+    <Content Include="Content\LoginPage\vendor\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\LoginPage\vendor\bootstrap\js\popper.js" />
+    <Content Include="Content\LoginPage\vendor\bootstrap\js\popper.min.js" />
+    <Content Include="Content\LoginPage\vendor\bootstrap\js\tooltip.js" />
+    <Content Include="Content\LoginPage\vendor\countdowntime\countdowntime.js" />
+    <Content Include="Content\LoginPage\vendor\css-hamburgers\hamburgers.css" />
+    <Content Include="Content\LoginPage\vendor\css-hamburgers\hamburgers.min.css" />
+    <Content Include="Content\LoginPage\vendor\daterangepicker\daterangepicker.css" />
+    <Content Include="Content\LoginPage\vendor\daterangepicker\daterangepicker.js" />
+    <Content Include="Content\LoginPage\vendor\daterangepicker\moment.js" />
+    <Content Include="Content\LoginPage\vendor\daterangepicker\moment.min.js" />
+    <Content Include="Content\LoginPage\vendor\jquery\jquery-3.2.1.min.js" />
+    <Content Include="Content\LoginPage\vendor\perfect-scrollbar\perfect-scrollbar.css" />
+    <Content Include="Content\LoginPage\vendor\perfect-scrollbar\perfect-scrollbar.min.js" />
+    <Content Include="Content\LoginPage\vendor\select2\select2.css" />
+    <Content Include="Content\LoginPage\vendor\select2\select2.js" />
+    <Content Include="Content\LoginPage\vendor\select2\select2.min.css" />
+    <Content Include="Content\LoginPage\vendor\select2\select2.min.js" />
     <Content Include="Content\mdtimepicker.css" />
     <Content Include="Content\sweetalert2\sweetalert2.min.css" />
     <Content Include="Content\sweetalert2\sweetalert2.min.js" />
@@ -486,15 +629,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\Model1.Context.tt">
+    <Content Include="Models\SmSEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+      <DependentUpon>SmSEntities.edmx</DependentUpon>
+      <LastGenOutput>SmSEntities.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Model1.tt">
+    <Content Include="Models\SmSEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
+      <DependentUpon>SmSEntities.edmx</DependentUpon>
+      <LastGenOutput>SmSEntities.cs</LastGenOutput>
     </Content>
     <Content Include="NuGet.exe" />
     <Content Include="Rotativa\libeay32.dll" />
@@ -587,15 +730,79 @@
     <Content Include="App_Browsers\qt.browser" />
     <Content Include="Content\bootstrap\variables.less" />
     <Content Include="Content\bootstrap\mixins.less" />
-    <EntityDeploy Include="Models\Model1.edmx">
+    <EntityDeploy Include="Models\SmSEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+      <LastGenOutput>SmSEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
+    <Content Include="Models\SmSEntities.edmx.diagram">
+      <DependentUpon>SmSEntities.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\fonts\FontAwesome.otf" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\less\animated.less" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\less\bordered-pulled.less" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\less\core.less" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\less\fixed-width.less" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\less\font-awesome.less" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\less\icons.less" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\less\larger.less" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\less\list.less" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\less\mixins.less" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\less\path.less" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\less\rotated-flipped.less" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\less\screen-reader.less" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\less\stacked.less" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\less\variables.less" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\scss\font-awesome.scss" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\scss\_animated.scss" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\scss\_core.scss" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\scss\_icons.scss" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\scss\_larger.scss" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\scss\_list.scss" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\scss\_mixins.scss" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\scss\_path.scss" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\scss\_stacked.scss" />
+    <Content Include="Content\LoginPage\fonts\font-awesome-4.7.0\scss\_variables.scss" />
+    <Content Include="Content\LoginPage\fonts\iconic\fonts\Material-Design-Iconic-Font.eot" />
+    <Content Include="Content\LoginPage\fonts\iconic\fonts\Material-Design-Iconic-Font.ttf" />
+    <Content Include="Content\LoginPage\fonts\iconic\fonts\Material-Design-Iconic-Font.woff" />
+    <Content Include="Content\LoginPage\fonts\iconic\fonts\Material-Design-Iconic-Font.woff2" />
+    <Content Include="Content\LoginPage\fonts\poppins\Poppins-Black.ttf" />
+    <Content Include="Content\LoginPage\fonts\poppins\Poppins-BlackItalic.ttf" />
+    <Content Include="Content\LoginPage\fonts\poppins\Poppins-Bold.ttf" />
+    <Content Include="Content\LoginPage\fonts\poppins\Poppins-BoldItalic.ttf" />
+    <Content Include="Content\LoginPage\fonts\poppins\Poppins-ExtraBold.ttf" />
+    <Content Include="Content\LoginPage\fonts\poppins\Poppins-ExtraBoldItalic.ttf" />
+    <Content Include="Content\LoginPage\fonts\poppins\Poppins-ExtraLight.ttf" />
+    <Content Include="Content\LoginPage\fonts\poppins\Poppins-ExtraLightItalic.ttf" />
+    <Content Include="Content\LoginPage\fonts\poppins\Poppins-Italic.ttf" />
+    <Content Include="Content\LoginPage\fonts\poppins\Poppins-Light.ttf" />
+    <Content Include="Content\LoginPage\fonts\poppins\Poppins-LightItalic.ttf" />
+    <Content Include="Content\LoginPage\fonts\poppins\Poppins-Medium.ttf" />
+    <Content Include="Content\LoginPage\fonts\poppins\Poppins-MediumItalic.ttf" />
+    <Content Include="Content\LoginPage\fonts\poppins\Poppins-Regular.ttf" />
+    <Content Include="Content\LoginPage\fonts\poppins\Poppins-SemiBold.ttf" />
+    <Content Include="Content\LoginPage\fonts\poppins\Poppins-SemiBoldItalic.ttf" />
+    <Content Include="Content\LoginPage\fonts\poppins\Poppins-Thin.ttf" />
+    <Content Include="Content\LoginPage\fonts\poppins\Poppins-ThinItalic.ttf" />
+    <Content Include="Content\LoginPage\vendor\bootstrap\css\bootstrap-grid.css.map" />
+    <Content Include="Content\LoginPage\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
+    <Content Include="Content\LoginPage\vendor\bootstrap\css\bootstrap-reboot.css.map" />
+    <Content Include="Content\LoginPage\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\LoginPage\vendor\bootstrap\css\bootstrap.css.map" />
+    <Content Include="Content\LoginPage\vendor\bootstrap\css\bootstrap.min.css.map" />
+    <Content Include="Content\HomePage\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\HomePage\fonts\glyphicons-halflings-regular.ttf" />
     <None Include="Properties\PublishProfiles\towhid.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
+    <Content Include="Scripts\fontawasome.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
     <Content Include="Scripts\jquery-1.12.4.min.map" />
@@ -648,8 +855,35 @@
     <Content Include="Views\UnallocatedClass\UnallocatedClass.cshtml" />
     <Content Include="Views\Sweet\Alert.cshtml" />
     <Content Include="Views\Course\ShowCourse.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Loginnn.cshtml" />
     <Content Include="Views\Course\CourseShowByStudent.cshtml" />
+    <Content Include="Views\Student\Show.cshtml" />
+    <Content Include="Views\CodeingClub\Create.cshtml" />
+    <Content Include="Views\CodeingClub\Delete.cshtml" />
+    <Content Include="Views\CodeingClub\Details.cshtml" />
+    <Content Include="Views\CodeingClub\Edit.cshtml" />
+    <Content Include="Views\CodeingClub\Index.cshtml" />
+    <Content Include="Views\CodingClubAdv\Create.cshtml" />
+    <Content Include="Views\CodingClubAdv\Delete.cshtml" />
+    <Content Include="Views\CodingClubAdv\Details.cshtml" />
+    <Content Include="Views\CodingClubAdv\Edit.cshtml" />
+    <Content Include="Views\CodingClubAdv\Index.cshtml" />
+    <Content Include="Views\NetClubAdv\Create.cshtml" />
+    <Content Include="Views\NetClubAdv\Delete.cshtml" />
+    <Content Include="Views\NetClubAdv\Details.cshtml" />
+    <Content Include="Views\NetClubAdv\Edit.cshtml" />
+    <Content Include="Views\NetClubAdv\Index.cshtml" />
+    <Content Include="Views\NetworkingClub\Create.cshtml" />
+    <Content Include="Views\NetworkingClub\Delete.cshtml" />
+    <Content Include="Views\NetworkingClub\Details.cshtml" />
+    <Content Include="Views\NetworkingClub\Edit.cshtml" />
+    <Content Include="Views\NetworkingClub\Index.cshtml" />
+    <Content Include="Views\CodeingClub\show.cshtml" />
+    <Content Include="Views\CodingClubAdv\show.cshtml" />
+    <Content Include="Views\NetworkingClub\show.cshtml" />
+    <Content Include="Views\NetClubAdv\show.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Shared\_HomeLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

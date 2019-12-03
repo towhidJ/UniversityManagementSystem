@@ -1,0 +1,36 @@
+﻿@model IEnumerable<UniversityManagementSystemMVCApp.Models.NetClubAdvTB>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info text-center">Advisor List</h2>
+    </div>
+</div>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.JoinDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TeacherTB.TeacherName)
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.JoinDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeacherTB.TeacherName)
+            </td>
+        </tr>
+    }
+
+</table>

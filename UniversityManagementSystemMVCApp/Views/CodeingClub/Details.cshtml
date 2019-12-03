@@ -1,0 +1,63 @@
+﻿@model UniversityManagementSystemMVCApp.Models.CodeingClubTB
+
+@{
+    ViewBag.Title = "Details";
+}
+@section Style
+{
+    <link href="~/Content/Custom_CS.css" rel="stylesheet" />
+    <style>
+        #errmsg {
+            color: red;
+        }
+
+        .field-validation-error {
+            text-align: center;
+            color: red;
+        }
+
+        #wrapper {
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        input {
+            width: 240px;
+        }
+    </style>
+}
+<h2 class="text-center text-info">Details</h2>
+
+<div id="wrapper">
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentTB.StudentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentTB.StudentName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

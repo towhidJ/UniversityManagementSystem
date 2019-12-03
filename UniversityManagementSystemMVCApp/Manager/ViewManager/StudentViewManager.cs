@@ -35,9 +35,14 @@ namespace UniversityManagementSystemMVCApp.Manager.ViewManager
         {
             return studentViewGetway.GetStudentByEnrollCourse(studentId);
         }
-        public List<StudentResult> GetCourseByEnrollCourse(int studentId)
+        //public List<StudentResult> GetCourseByEnrollCourse(int studentId)
+        //{
+        //    return studentViewGetway.GetCourseByEnrollCourse(studentId);
+        //}
+
+        public List<StudentResult> GetCourseByEnrollCourse(int studentId,int teacherId)
         {
-            return studentViewGetway.GetCourseByEnrollCourse(studentId);
+            return studentViewGetway.GetCourseByEnrollCourse(studentId,teacherId);
         }
     }
 }

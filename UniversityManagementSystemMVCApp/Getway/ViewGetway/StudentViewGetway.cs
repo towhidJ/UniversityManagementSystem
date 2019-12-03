@@ -108,9 +108,27 @@ namespace UniversityManagementSystemMVCApp.Getway.ViewGetway
         }
 
 
-        public List<StudentResult> GetCourseByEnrollCourse(int StudentId)
+        //public List<StudentResult> GetCourseByEnrollCourse(int StudentId)
+        //{
+        //    string query = "SELECT CourseName,EnrollCourseTB.CourseId From CourseTB INNER JOIN EnrollCourseTB ON EnrollCourseTB.CourseId = CourseTB.Id WHERE Action =1 AND EnrollCourseTB.StudentId = " + StudentId;
+        //    Command = new SqlCommand(query, Connection);
+        //    Connection.Open();
+        //    Reader = Command.ExecuteReader();
+        //    List<StudentResult> studentViews = new List<StudentResult>();
+        //    while (Reader.Read())
+        //    {
+        //        StudentResult studentView = new StudentResult();
+        //        studentView.CourseId = Convert.ToInt32(Reader["CourseId"]);
+        //        studentView.CourseName = Reader["CourseName"].ToString();
+        //        studentViews.Add(studentView);
+        //    }
+        //    Connection.Close();
+        //    return studentViews;
+        //}
+
+        public List<StudentResult> GetCourseByEnrollCourse(int StudentId,int teacherId)
         {
-            string query = "SELECT CourseName,EnrollCourseTB.CourseId From CourseTB INNER JOIN EnrollCourseTB ON EnrollCourseTB.CourseId = CourseTB.Id WHERE Action =1 AND EnrollCourseTB.StudentId = " + StudentId;
+            string query = "SELECT CourseName,EnrollCourseTB.CourseId From CourseTB INNER JOIN EnrollCourseTB ON EnrollCourseTB.CourseId = CourseTB.Id INNER JOIN CourseAssignTB ON CourseAssignTB.CourseId= EnrollCourseTB.CourseId INNER JOIN TeacherTB ON TeacherTB.Id=CourseAssignTB.TeacherId WHERE Action =1 AND EnrollCourseTB.StudentId = '"+StudentId+"' AND TeacherTB.Id = "+teacherId;
             Command = new SqlCommand(query, Connection);
             Connection.Open();
             Reader = Command.ExecuteReader();

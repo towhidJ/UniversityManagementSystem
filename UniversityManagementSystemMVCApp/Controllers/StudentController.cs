@@ -12,6 +12,7 @@ namespace UniversityManagementSystemMVCApp.Controllers
     [Authorize]
     public class StudentController : Controller
     {
+        SmSEntities db = new SmSEntities();
         //
         // GET: /Student/
         private DepartmentManager departmentManager;
@@ -41,6 +42,13 @@ namespace UniversityManagementSystemMVCApp.Controllers
             ViewBag.Message = studentManager.Save(student);
             ViewBag.Departments = departmentManager.GetSelectListItemsForDropdown();
             return View();
+        }
+
+
+        public ActionResult Show()
+        {
+            var studentList = db.StudentTBs.ToList();
+            return View(studentList);
         }
 
         public string registrationNumber(int departmentId, DateTime registerdate)

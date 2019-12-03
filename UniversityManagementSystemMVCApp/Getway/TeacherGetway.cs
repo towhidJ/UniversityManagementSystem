@@ -13,8 +13,8 @@ namespace UniversityManagementSystemMVCApp.Getway
         public int Save(Teacher teacher)
         {
             string query =
-                "INSERT INTO TeacherTB(TeacherName,Address,Email,ContactNo,DepartmentId,DesignationId,CreditToBeTaken,ReminingCredit) VALUES('" +
-                teacher.TeacherName + "','" + teacher.Address + "','" + teacher.Email +
+                "INSERT INTO TeacherTB(TeacherName,Address,RoleId,Password,Email,ContactNo,DepartmentId,DesignationId,CreditToBeTaken,ReminingCredit) VALUES('" +
+                teacher.TeacherName + "','" + teacher.Address + "','" + 3+ "','" + teacher.Password + "','" + teacher.Email +
                 "','" + teacher.ContactNo + "','" + teacher.DepartmentId + "','" + teacher.DesignationId + "','" + teacher.CreditToBeTaken + "','" + teacher.CreditToBeTaken + "')";
 
             Command = new SqlCommand(query, Connection);

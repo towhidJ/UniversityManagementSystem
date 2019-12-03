@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Caching;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Rotativa;
 using UniversityManagementSystemMVCApp.Manager;
 using UniversityManagementSystemMVCApp.Manager.ViewManager;
@@ -14,6 +16,7 @@ namespace UniversityManagementSystemMVCApp.Controllers
     [Authorize]
     public class StudentResultController : Controller
     {
+        SmSEntities db = new SmSEntities();
         private StudentViewManager studentViewManager;
         private EnrollCourseManager enrollCourseManager;
         private StudentManager studentManager;
@@ -30,19 +33,25 @@ namespace UniversityManagementSystemMVCApp.Controllers
             studentResultManager = new StudentResultManager();
             student = new Student();
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Teacher")]
         public ActionResult Save()
         {
+            var user = User.Identity.Name;
+            var uid = db.TeacherTBs.Single(c => c.Email == user).Id;
 
-            ViewBag.RegNo = enrollCourseManager.GetSelectListItemsForDropdown();
+            //ViewBag.RegNo = enrollCourseManager.GetSelectListItemsForDropdown();
+            ViewBag.RegNo = enrollCourseManager.AllStudentByTeacherId(uid);
             ViewBag.Grades = gradeLetterManager.GetSelectListItemsForDropdown();
             return View();
         }
         [HttpPost]
         public ActionResult Save(StudentResult studentResult)
         {
+            var user = User.Identity.Name;
+            var uid = db.TeacherTBs.Single(c => c.Email == user).Id;
             ViewBag.Message = studentResultManager.Save(studentResult);
-            ViewBag.RegNo = enrollCourseManager.GetSelectListItemsForDropdown();
+            //ViewBag.RegNo = enrollCourseManager.GetSelectListItemsForDropdown();
+            ViewBag.RegNo = enrollCourseManager.AllStudentByTeacherId(uid);
             ViewBag.Grades = gradeLetterManager.GetSelectListItemsForDropdown();
             return View();
         }
@@ -51,7 +60,11 @@ namespace UniversityManagementSystemMVCApp.Controllers
         [Authorize(Roles = "Admin, Student")]
         public ActionResult Show()
         {
-            ViewBag.RegNo = enrollCourseManager.GetSelectListItemsForDropdown();
+            //ViewBag.RegNo = enrollCourseManager.GetSelectListItemsForDropdown();
+            SmSEntities db = new SmSEntities();
+            var user = User.Identity.Name;
+            var uid = db.StudentTBs.Single(c => c.Email == user).Id;
+            ViewBag.RegNo = enrollCourseManager.StudentResultByEmail(uid);
             return View();
         }
         //[HttpPost]
@@ -79,7 +92,10 @@ namespace UniversityManagementSystemMVCApp.Controllers
         }
         public JsonResult CourseByRegistrationNo(int studentId)
         {
-            List<StudentResult> AllCourseView = studentViewManager.GetCourseByEnrollCourse(studentId);
+            var user = User.Identity.Name;
+            var teacherId = db.TeacherTBs.Single(c => c.Email == user).Id;
+            //List<StudentResult> AllCourseView = studentViewManager.GetCourseByEnrollCourse(studentId);
+            List<StudentResult> AllCourseView = studentViewManager.GetCourseByEnrollCourse(studentId,teacherId);
             return Json(AllCourseView);
         }
 

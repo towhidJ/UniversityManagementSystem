@@ -1,0 +1,52 @@
+﻿@model IEnumerable<UniversityManagementSystemMVCApp.Models.NetworkingClubTB>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info text-center">Member List</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a href="@Url.Action("Create","NetworkingClub")" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp; Add Membar</a>
+    </div>
+</div>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentTB.StudentName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentTB.StudentName)
+            </td>
+            <td style="width: 150px">
+                <div class="btn-group">
+                    <a class="btn btn-primary" href="@Url.Action("Edit", "NetworkingClub", new {id = item.Id})"><i class="far fa-edit"></i></a>
+                    <a class="btn btn-success" href="@Url.Action("Details", "NetworkingClub", new {id = item.Id})"><i class="fas fa-list-ul"></i></a>
+                    <a class="btn btn-danger" href="@Url.Action("Delete", "NetworkingClub", new {id = item.Id})"><i class="fas fa-trash-alt"></i></a>
+                </div>
+            </td>
+        </tr>
+    }
+
+</table>

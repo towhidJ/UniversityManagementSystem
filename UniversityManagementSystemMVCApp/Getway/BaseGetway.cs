@@ -16,6 +16,10 @@ namespace UniversityManagementSystemMVCApp.Getway
         {
             string conn = WebConfigurationManager.ConnectionStrings["UniversityDBConnectingString"].ConnectionString;
             Connection = new SqlConnection(conn);
+
+
+
+            //Database Connection Aita
         }
     }
 }

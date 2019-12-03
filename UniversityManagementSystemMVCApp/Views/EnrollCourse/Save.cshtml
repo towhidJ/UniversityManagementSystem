@@ -32,7 +32,7 @@
 
     <div id="wrapper">
         <hr />
-        <h3 class="center">Enroll in a Course</h3>
+        <h3 class="text-center text-info">Enroll in a Course</h3>
         <hr />
         @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "Enroll" }))
         {
@@ -66,9 +66,11 @@
                 @*<input type="text" id="Date" name="Date" class="form-control"/>*@
                 @Html.ValidationMessageFor(x=>x.Date)
             </div>
-    <div class="col-xs-11 space-ver">
-        <input type="submit" value="Enroll" class="btn btn-success" />
-    </div>
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-10">
+                    <input type="submit" id="click" value="Enroll" class="btn btn-success" />
+                </div>
+            </div>
 
         }
 

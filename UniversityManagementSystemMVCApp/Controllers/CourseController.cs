@@ -69,7 +69,16 @@ namespace UniversityManagementSystemMVCApp.Controllers
         [Authorize(Roles = "Admin, Student")]
         public ActionResult CourseShowByStudent()
         {
-            ViewBag.RegNo = enrollCourseManager.GetSelectListItemsForDropdown();
+            SmSEntities db = new SmSEntities();
+            var n = User.Identity.Name;
+            ViewBag.RegNo = (from e in db.EnrollCourseTBs
+                join s in db.StudentTBs on e.StudentId equals s.Id where s.Email==n
+                select new
+                {
+                    Text=e.StudentTB.RegistrationNo,
+                    Value = e.StudentId
+                }).Distinct().ToList(); 
+            //ViewBag.RegNo = enrollCourseManager.GetSelectListItemsForDropdown();
             return View();
         }
 

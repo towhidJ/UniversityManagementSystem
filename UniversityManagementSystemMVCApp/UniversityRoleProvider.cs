@@ -38,15 +38,36 @@ namespace UniversityManagementSystemMVCApp
 
         public override string[] GetRolesForUser(string username)
         {
-            using (var context = new LoginEntities())
+            using (var context = new SmSEntities())
             {
-                var result = (from user in context.User
-                    join role in context.UserRole on user.Id equals role.UserId
-                    where user.UserName == username
-                    select role.Role).ToArray();
+                if (context.AdminTBs.Any(x => x.Email == username))
+                {
+                    var AdminResult = (from roleTB in context.RoleTBs
+                        join adminTB in context.AdminTBs on roleTB.Id equals adminTB.RoleId
+                        where adminTB.Email == username
+                        select roleTB.Role).ToArray();
+                    return AdminResult;
+                }
+                if (context.StudentTBs.Any(x => x.Email == username))
+                {
+                    var StudentResult = (from roleTB in context.RoleTBs
+                        join studentTB in context.StudentTBs on roleTB.Id equals studentTB.RoleId
+                        where studentTB.Email == username
+                        select roleTB.Role).ToArray();
+                    return StudentResult;
+                }
+                if (context.TeacherTBs.Any(x => x.Email == username))
+                {
+                    var TeacherResult = (from roleTB in context.RoleTBs
+                        join teacherTB in context.TeacherTBs on roleTB.Id equals teacherTB.RoleId
+                        where teacherTB.Email == username
+                        select roleTB.Role).ToArray();
+                    return TeacherResult;
+                }
 
-                return result;
+
             }
+            throw new NotImplementedException();
         }
 
         public override string[] GetUsersInRole(string roleName)

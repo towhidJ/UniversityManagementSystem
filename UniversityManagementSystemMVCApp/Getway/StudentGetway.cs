@@ -12,7 +12,8 @@ namespace UniversityManagementSystemMVCApp.Getway
         //(StudentName,Email,ContactNo,Address,RegistrationNo,DepartmentId,DepartmentId,DepartmentId,RegisterDate)
         public int Save(Student student)
         {
-            string query = "INSERT INTO StudentTB(StudentName,Email,ContactNo,Address,RegistrationNo,DepartmentId,RegisterDate) VALUES('" + student.StudentName + "','" + student.Email + "','" + student.ContactNo + "','" + student.Address + "','" + student.RegistrationNo + "','" + student.DepartmentId + "','" + student.RegisterDate + "')";
+            //student.RoleId = 1;
+            string query = "INSERT INTO StudentTB(StudentName,Email,Password,RoleId,ContactNo,Address,RegistrationNo,DepartmentId,RegisterDate) VALUES('" + student.StudentName + "','" + student.Email + "','"+student.Password+"','"+1+"', '" + student.ContactNo + "','" + student.Address + "','" + student.RegistrationNo + "','" + student.DepartmentId + "','" + student.RegisterDate + "')";
             Command = new SqlCommand(query,Connection);
             Connection.Open();
             int rowAffect = Command.ExecuteNonQuery();

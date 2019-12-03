@@ -27,7 +27,7 @@
 <div>
     <div id="wrapper">
         <hr />
-        <h3>Register Student</h3>
+        <h3 class="text-center text-info">Register Student</h3>
         <hr />
         @using (Html.BeginForm(null, null, FormMethod.Post))
         {
@@ -41,13 +41,20 @@
                 @Html.TextBoxFor(x => x.Email, null, new { @class = "form-control" })
                 @Html.ValidationMessageFor(x => x.Email)
             </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.Password, new { @class = "col-md-3 control-label" })
+                @Html.TextBoxFor(x => x.Password, null, new { @class = "form-control", Type = "password" })
+                @Html.ValidationMessageFor(x => x.Password)
+            </div>
+
             <div class="form-group">
                 @Html.LabelFor(x => x.ContactNo, new { @class = "col-md-3 control-label" })
                 @Html.TextBoxFor(x => x.ContactNo, null, new { @class = "form-control" })
                 @Html.ValidationMessageFor(x => x.ContactNo)
             </div>
             <div class="form-group">
-                @Html.LabelFor(x => x.RegisterDate, new { @class = "col-md-3 control-label"})
+                @Html.LabelFor(x => x.RegisterDate, new { @class = "col-md-3 control-label" })
                 @Html.TextBoxFor(x => x.RegisterDate, "Date", new { @class = "form-control", @Value = @DateTime.Now.ToShortDateString() })
                 @*<input type="text" id="RegisterDate" name="RegisterDate" class="form-control" value="@DateTime.Now.ToShortDateString()" />*@
                 @Html.ValidationMessageFor(x => x.RegisterDate)
@@ -62,16 +69,20 @@
                 @Html.DropDownListFor(x => x.DepartmentId, new SelectList(ViewBag.Departments, "Value", "Text"), new { @class = "form-control" })
                 @Html.ValidationMessageFor(x => x.DepartmentId)
             </div>
-            <div class="col-xs-11 space-ver">
-                <input id="click" type="submit" value="Register" class="btn btn-success" />
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-10">
+                    <input type="submit" id="click" value="Save" class="btn btn-success" />
+                </div>
             </div>
         }
 
         <div class="center"><h3>@ViewBag.Message</h3></div>
-        <hr/>
+        <hr />
         <p class="center">@ViewBag.StudentRegs</p>
     </div>
 </div>
+
+@* Html Code Aigulo *@
 
 @section scripts
 {

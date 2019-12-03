@@ -1,0 +1,63 @@
+﻿@model UniversityManagementSystemMVCApp.Models.CodingClubAdvTB
+
+@{
+    ViewBag.Title = "Delete";
+}
+@section Style
+{
+    <link href="~/Content/Custom_CS.css" rel="stylesheet" />
+    <style>
+        #errmsg {
+            color: red;
+        }
+
+        .field-validation-error {
+            text-align: center;
+            color: red;
+        }
+
+        #wrapper {
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        input {
+            width: 240px;
+        }
+    </style>
+}
+<h2 class="text-danger text-center">Delete</h2>
+
+<h3 class="text-danger text-center">Are you sure you want to delete this?</h3>
+<div id="wrapper">
+    <h4 class="text-center text-info">Adviser Info</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.JoinDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JoinDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TeacherTB.TeacherName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeacherTB.TeacherName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
